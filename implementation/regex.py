@@ -2,11 +2,11 @@ import re
 import json
 
 
-def rtvslo_regex(page):
+def rtvslo(page):
     output = {}
 
     output["Author"] = re.search("<div class=\"author-name\">(.*?)</div>", page)[1]
-    output["PublishDate"] = re.search("<div class=\"publish-meta\">(\d+\. \w+ \d{4} ob \d{2}:\d{2}).*?</div>", page)[1]
+    output["PublishedTime"] = re.search("<div class=\"publish-meta\">(\d+\. \w+ \d{4} ob \d{2}:\d{2}).*?</div>", page)[1]
     output["Title"] = re.search("<header class=\"article-header\">.*<h1>(.*)</h1>.*</header>", page)[1]
     output["SubTitle"] = re.search("<div class=\"subtitle\">(.*?)</div>", page)[1]
     output["Lead"] = re.search("<p class=\"lead\">(.*?)</p>", page)[1]
@@ -17,7 +17,7 @@ def rtvslo_regex(page):
     return json.dumps(output,  ensure_ascii=False)
 
 
-def overstock_regex(page):
+def overstock(page):
     output = {}
     page = re.sub("<script.*?</script>", "", page)
     results = re.findall("<td valign=\"top\"> <a href=.*?<b>(.*?)</b></a>.*?"  # Title
@@ -44,7 +44,7 @@ def overstock_regex(page):
     return json.dumps(output, ensure_ascii=False)
 
 
-def mimovrste_regex(page):
+def mimovrste(page):
     output = {}
 
     output["Title"] = re.search("pro-column.*?<h1.*?>(.*?)</h1>", page)[1]
@@ -77,6 +77,6 @@ def stringify_file(path):
     return re.sub(r"\s\s+", "", re.sub(r"\n", "", content))
 
 
-# print(rtvslo_regex(stringify_file("rtvslo.si/Audi A6 50 TDI quattro_ nemir v premijskem razredu - RTVSLO.si.html")))
-# print(overstock_regex(stringify_file("overstock.com/jewelry02.html")))
-# print(mimovrste_regex(stringify_file("mimovrste.com/item01.html")))
+# print(rtvslo(stringify_file("rtvslo.si/Audi A6 50 TDI quattro_ nemir v premijskem razredu - RTVSLO.si.html")))
+# print(overstock(stringify_file("overstock.com/jewelry02.html")))
+# print(mimovrste(stringify_file("mimovrste.com/item01.html")))
