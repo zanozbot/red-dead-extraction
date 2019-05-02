@@ -40,6 +40,35 @@ def overstock(root):
     return json.dumps(output, ensure_ascii=False)
 
 
+def mimovrste(root):
+    output = {}
+
+    output["Title"] = root.xpath("//h1")[0].text
+    output["Rating"] = root.xpath("//span[contains(@class, 'rat--medium')]/span[1]")[0].text
+    energy_level = root.xpath("//span[contains(@class, 'label--energy')]")
+    if len(energy_level) > 0:
+        output["EnergyLevel"] = energy_level[0].text
+    output["Brand"] = root.xpath("//span[contains(@class, 'brand-info')]/a")[0].text
+    output["CatalogNumber"] = root.xpath("//span[contains(@class, 'catalog-number')]/span")[0].text
+    stickers = root.xpath("//p[contains(@class, 'pro-stickers')]/em")
+    output["Stickers"] = []
+    for sticker in stickers:
+        output["Stickers"].append(sticker.text)
+    output["Description"] = root.xpath("//p[contains(@class, 'pro-description--short')]//text()")
+    output["Description"] = [e.strip() for e in output["Description"]]
+    output["Description"] = " ".join(output["Description"])
+    output["Price"] = root.xpath("//b[contains(@class, 'pro-price')]")[0].text.strip()
+    output["BasePrice"] = root.xpath("//span[contains(@class, 'base-price')]/del")[0].text
+    output["SavingPercent"] = root.xpath("//span[contains(@class, 'base-price')]/span[2]")[0].text.replace("(", "").replace(")", "")
+    output["Availability"] = root.xpath("//a[contains(@class, 'con-text--availability')]")[0].text.replace("\n", "").strip()
+    output["MarketplacePartner"] = root.xpath("//span[contains(@class, 'marketplace-partner__name')]/b")[0].text
+    last_piece = root.xpath("//em[contains(@class, 'label--last-piece')]")
+    if len(last_piece) > 0:
+        output["LastPiece"] = last_piece[0].text
+
+    return json.dumps(output, ensure_ascii=False)
+
+
 def get_root(path):
     with open("../input/" + path, "r", encoding="utf-8", errors="ignore") as content_file:
         content = content_file.read()
@@ -47,4 +76,5 @@ def get_root(path):
 
 
 # print(rtvslo(get_root("rtvslo.si/Volvo XC 40 D4 AWD momentum_ suvereno med najboljše v razredu - RTVSLO.si.html")))
-print(overstock(get_root("overstock.com/jewelry02.html")))
+# print(overstock(get_root("overstock.com/jewelry02.html")))
+# print(mimovrste(get_root("mimovrste.com/item02.html")))
