@@ -5,6 +5,7 @@
 Before running the project you will have to install the following dependencies.
 ```
 pip install lxml
+pip install bs4
 ```
 
 ## Running

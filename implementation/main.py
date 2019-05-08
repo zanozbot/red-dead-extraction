@@ -1,7 +1,7 @@
 import sys
 
-algorithms = set(["regex", "xpath"])
-websites = set(["rtvslo.si", "overstock.com", "mimovrste.com"])
+algorithms = set(["regex", "xpath", "road_runner"])
+websites = set(["rtvslo.si", "overstock.com", "mimovrste.com", "rr_pcdata_example", "rr_optional_example", "rr_example"])
 pages = set(["1","2"])
 
 wpnames = {website : [] for website in websites}
@@ -39,14 +39,22 @@ if __name__ == "__main__":
 			elif sys.argv[1] == "xpath":
 				import xpath as alg
 				systemInput = alg.get_root(sys.argv[2]+"/"+wpnames[sys.argv[2]][npage])
-			
-			if sys.argv[2] == "rtvslo.si":
-				jsonOutput = alg.rtvslo(systemInput)
-			elif sys.argv[2] == "overstock.com":
-				jsonOutput = alg.overstock(systemInput)
-			elif sys.argv[2] == "mimovrste.com":
-				jsonOutput = alg.mimovrste(systemInput)
+			elif sys.argv[1] == "road_runner":
+				import road_runner as alg
 
+
+			if sys.argv[1] != "road_runner" and sys.argv[2] == "rtvslo.si":
+				jsonOutput = alg.rtvslo(systemInput)
+			elif sys.argv[1] != "road_runner" and sys.argv[2] == "overstock.com":
+				jsonOutput = alg.overstock(systemInput)
+			elif sys.argv[1] != "road_runner" and sys.argv[2] == "mimovrste.com":
+				jsonOutput = alg.mimovrste(systemInput)
+			elif sys.argv[1] == "road_runner" and sys.argv[2] == "rr_pcdata_example":
+				alg.pcdataExample()
+			elif sys.argv[1] == "road_runner" and sys.argv[2] == "rr_optional_example":
+				alg.optionalExample()
+			elif sys.argv[1] == "road_runner" and sys.argv[2] == "rr_example":
+				alg.siteExample()
 			print(jsonOutput)
 	else:
 		print("Not enough parameters")

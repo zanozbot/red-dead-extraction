@@ -117,14 +117,14 @@ def generalize(wrapper_location, sample_location):
 
         # Same line - do nothing
         if (same_line(wrapper_lines[wrapper_index], sample_lines[sample_index])):
-            print(sample_lines[sample_index])
+            # print(sample_lines[sample_index])
             new_wrapper.append(sample_lines[sample_index])
             wrapper_index += 1
             sample_index += 1
 
         # Different text - #PCDATA
         elif (is_text(sample_lines[sample_index])):
-            print("#PCDATA")
+            # print("#PCDATA")
             new_wrapper.append("#PCDATA")
             wrapper_index += 1
             sample_index += 1
@@ -162,7 +162,7 @@ def generalize(wrapper_location, sample_location):
                     sample_index += tag_length
                     for line in tag_optional:
                         new_wrapper.append(line)
-                    print(tag_optional)
+                    # print(tag_optional)
                 else:
                     # print(wrapper_tag_count)
                     tag_length, tag_optional = tag_to_optional(wrapper, tag_name(
@@ -170,12 +170,22 @@ def generalize(wrapper_location, sample_location):
                     wrapper_index += tag_length
                     for line in tag_optional:
                         new_wrapper.append(line)
-                    print(tag_optional)
+                    # print(tag_optional)
 
-    print("## FINAL WRAPPER ##")
-    for line in new_wrapper:
-        print(line)
+    new_wrapper = ''.join(new_wrapper)
+    print(new_wrapper)
+    f = open("rr_wrapper.txt", "w+")
+    f.write(new_wrapper)
+    f.close()
 
+def pcdataExample():
+  generalize('../input/road_runner/pcdataA.html',
+            '../input/road_runner/pcdataB.html')
 
-generalize('../input/road_runner/siteA.html',
+def optionalExample():
+  generalize('../input/road_runner/optionalA.html',
+           '../input/road_runner/optionalB.html')
+
+def siteExample():
+  generalize('../input/road_runner/siteA.html',
            '../input/road_runner/siteB.html')
