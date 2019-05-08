@@ -49,12 +49,14 @@ if __name__ == "__main__":
 				jsonOutput = alg.overstock(systemInput)
 			elif sys.argv[1] != "road_runner" and sys.argv[2] == "mimovrste.com":
 				jsonOutput = alg.mimovrste(systemInput)
-			elif sys.argv[1] == "road_runner" and sys.argv[2] == "rr_pcdata_example":
-				alg.pcdataExample()
-			elif sys.argv[1] == "road_runner" and sys.argv[2] == "rr_optional_example":
-				alg.optionalExample()
-			elif sys.argv[1] == "road_runner" and sys.argv[2] == "rr_example":
-				alg.siteExample()
+
+			if(sys.argv[1] == "road_runner"):
+				if sys.argv[2] == "rr_pcdata_example":
+					alg.pcdataExample()
+				elif sys.argv[2] == "rr_optional_example":
+					alg.optionalExample()
+				elif sys.argv[2] == "rr_example":
+					alg.siteExample()
 			print(jsonOutput)
 	else:
 		print("Not enough parameters")

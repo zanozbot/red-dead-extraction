@@ -164,7 +164,6 @@ def generalize(wrapper_location, sample_location):
                         new_wrapper.append(line)
                     # print(tag_optional)
                 else:
-                    # print(wrapper_tag_count)
                     tag_length, tag_optional = tag_to_optional(wrapper, tag_name(
                         wrapper_lines[wrapper_index]), wrapper_tag_count[tag_name(wrapper_lines[wrapper_index])])
                     wrapper_index += tag_length
@@ -189,3 +188,6 @@ def optionalExample():
 def siteExample():
   generalize('../input/road_runner/siteA.html',
            '../input/road_runner/siteB.html')
+
+def customSites(siteA, siteB):
+  generalize("../input/" + siteA, "../input/" + siteB)
