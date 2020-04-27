@@ -1,5 +1,7 @@
 # Red Dead Extraction
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 The goal of this programming assignment is to implement three different approaches for the structured data extraction from the Web
 
 ## Installation instructions
